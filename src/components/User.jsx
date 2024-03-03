@@ -4,6 +4,7 @@ import { USER_MUTATION } from "../graphql/mutations";
 import ErrorBox from "./ErrorBox";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function User() {
   const [user, { loading, error, data }] = useMutation(USER_MUTATION);
@@ -25,7 +26,11 @@ export default function User() {
   };
 
   if (!token || token == undefined) {
-    return <Navigate to="/" />
+    return <Navigate to="/" />;
+  }
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
@@ -73,7 +78,7 @@ export default function User() {
           placeholder="amount"
           readOnly
           required
-          value={amount ? amount.toFixed(2) : ''}
+          value={amount ? amount.toFixed(2) : ""}
           style={{
             width: 300,
             height: 50,

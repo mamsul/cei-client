@@ -4,6 +4,7 @@ import { AUTH_MUTATION } from "../graphql/mutations";
 import ErrorBox from "./ErrorBox";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../lib/utils";
+import Loading from "./Loading";
 
 export default function Auth() {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ export default function Auth() {
     e.preventDefault();
     auth({ variables: { email } });
   };
+
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div style={{ width: 320 }}>
